@@ -5,13 +5,13 @@ export const setLoaded = payload => ({
   payload,
 })
 
-export const ferchStore = () => (dispatch) => {
+export const ferchStore = (actCat) => (dispatch) => {
   dispatch({
     type: actionName.SET_LOADED,
     payload: false,
   })
 
-  fetch("http://localhost:3000/listItems")
+  fetch(`http://localhost:3000/listItems?${actCat && ('promotion_like=' + actCat)}`)
     .then(item => item.json())
     .then(item => dispatch(setStore(item)))
 } 

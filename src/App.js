@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ferchStore } from './store/actions/store';
+import { setCategory } from './store/actions/filters';
 import Header from './components/Header';
 
 import ItemCart from './components/ItemCart';
@@ -8,6 +9,7 @@ import ItemCart from './components/ItemCart';
 import './assets/css/styles.css';
 import Footer from './components/Footer';
 import Category from './components/Category';
+import Button from './components/Button';
 
 
 
@@ -15,20 +17,33 @@ function App() {
   const dispatch = useDispatch();
 
   const card = useSelector(({store}) => store.items);
+  const activeCategory = useSelector(({filters}) => filters.category);
 
   useEffect(() => {
-    dispatch(ferchStore())
+    dispatch(ferchStore(activeCategory))
     return () => {}
-  }, [])
+  }, [activeCategory])
+
+  let category = [
+    ["hit","Хит"],
+    ["promotion","Акция"],
+    ["novelty","Новинка"],
+    ["2021","Модель 2021 года"]
+  ]
+
+  const onSetCategory = (item) => {
+    dispatch(setCategory(item))
+  }
   
-  const numb = 2;
   return (
     <div className="App">
       <Header />
       <section>
         <div className="wrapper wrapper--tp">
           <Category 
-            items={['Хит','Новинка','Акция','Модель 2021 года']}
+            items={category}
+            onClickCategory={onSetCategory}
+            activeCategory={activeCategory}
           />
           <ul className="cardList podTp loader--ins">
             {card.map(item => {
