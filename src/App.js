@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ferchStore } from './store/actions/store';
 import { setCategory } from './store/actions/filters';
+import { fetchFavorites } from './store/actions/favorites';
 import Header from './components/Header';
 
 import ItemCart from './components/ItemCart';
@@ -10,6 +11,7 @@ import './assets/css/styles.css';
 import Footer from './components/Footer';
 import Category from './components/Category';
 import Button from './components/Button';
+import ItemsList from './components/ItemsList';
 
 
 
@@ -23,6 +25,13 @@ function App() {
     dispatch(ferchStore(activeCategory))
     return () => {}
   }, [activeCategory])
+
+  useEffect(() => {
+    dispatch(fetchFavorites())
+  
+    return () => {}
+  }, [])
+  
 
   let category = [
     ["hit","Хит"],
@@ -45,26 +54,7 @@ function App() {
             onClickCategory={onSetCategory}
             activeCategory={activeCategory}
           />
-          <ul className="cardList podTp loader--ins">
-            {card.map(item => {
-              return (
-                <li className="cardList__item card--wrap" key={item.id}>
-                  <ItemCart 
-                    promotion={item.promotion}
-                    favorite={false}
-                    img={item.imgTitle}
-                    oldPrice={item.Oldprice}
-                    price={item.price}
-                    title={item.title}
-                    availability={item.number > 0}
-                  />
-                </li>
-              )
-            })}
-            <div className="loader active">
-              <div className="loader__icon"><i className="icon-loader" /></div>
-            </div>
-          </ul>
+          <ItemsList listItems={card} />
         </div>
       </section>
       <section className="viewed">

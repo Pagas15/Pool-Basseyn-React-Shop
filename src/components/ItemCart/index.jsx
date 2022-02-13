@@ -6,8 +6,8 @@ import BtnFavorites from '../btns/BtnFavorites';
 import Price from '../elements/Price';
 import Availability from '../elements/Availability';
 
-function ItemCart({promotion, favorite, img, oldPrice, price, title, availability}) {
-
+function ItemCart({promotion, favorite, img, oldPrice, price, title, availability, itemId}) {
+  
   const promotionBlock = () => {
     if(promotion){
       return (<div className="card__presentation">
