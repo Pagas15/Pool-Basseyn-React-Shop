@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ferchStore } from './store/actions/store';
 import Header from './components/Header';
 
 import ItemCart from './components/ItemCart';
-
 
 import './assets/css/styles.css';
 import Footer from './components/Footer';
 import Category from './components/Category';
 
-function App() {
 
-  const [card, setCard] = useState([]);
+
+function App() {
+  const dispatch = useDispatch();
+
+  const card = useSelector(({store}) => store.items);
+
   useEffect(() => {
-    fetch("http://localhost:3000/listItems").then(item => item.json()).then(item => setCard(item))
-  
+    dispatch(ferchStore())
     return () => {}
   }, [])
   
