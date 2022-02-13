@@ -13,6 +13,14 @@ function PromotionItem({type, text, color}) {
       textSi = 'Акция',
       colorBlock = ' presen--yellow'
       break;
+    case 'novelty':
+      textSi = 'Новинка',
+      colorBlock = ' presen--green'
+      break;
+    case '2021':
+      textSi = 'Модель 2021 года',
+      colorBlock = ' presen--yellow'
+      break;
     default:
       color && (colorBlock = ' presen--' + color);
       colorBlock = ''
