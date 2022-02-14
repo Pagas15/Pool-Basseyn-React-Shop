@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function BtnFavorites({className, statePos = false, onClick}) {
   const clickbl = () => {

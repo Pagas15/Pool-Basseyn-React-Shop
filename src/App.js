@@ -41,7 +41,7 @@ function App() {
   ]
 
   const onSetCategory = (item) => {
-    dispatch(setCategory(item))
+    dispatch(setCategory(activeCategory === item ? null : item))
   }
   
   return (

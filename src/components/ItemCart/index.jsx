@@ -5,9 +5,10 @@ import PromotionItem from '../PromotionItem';
 import BtnFavorites from '../btns/BtnFavorites';
 import Price from '../elements/Price';
 import Availability from '../elements/Availability';
+import Counter from '../elements/Counter';
 
-function ItemCart({item, onAddCart, favorite, toggleFavorite}) {
-  
+function ItemCart({item, onAddCart, favorite, toggleFavorite, numberInCart, calcCount}) {
+
   const promotionBlock = () => {
     if(item.promotion){
       return (<div className="card__presentation">
@@ -26,7 +27,17 @@ function ItemCart({item, onAddCart, favorite, toggleFavorite}) {
     })
   }
 
+  const calcInCount = (state) => {
+    calcCount(state, item.id)
+  }
+
   const onToggleFavorite = () => toggleFavorite(item.id);
+
+  const btnCartCount = (
+    availability && (!numberInCart ? 
+      <Button className={'btnGrBd'} onClick={addToCart}><i className="icon-cart" /> В корзину</Button> :
+      <Counter startCount={numberInCart} calcCount={calcInCount} className="mBot6" />)
+    )
 
 
   return (
@@ -48,7 +59,7 @@ function ItemCart({item, onAddCart, favorite, toggleFavorite}) {
         />
         <p className="card__desc txt14x22">{item.title}</p>
         <div className="card__btns">
-          {availability && <Button className={'btnGrBd'} onClick={addToCart}><i className="icon-cart" /> В корзину</Button>}
+          {btnCartCount}
           <Button className={'btnGy'}>Поподробнее</Button>
         </div>
       </div>

@@ -7,6 +7,7 @@ import TitleRow from './TitleRow';
 
 import imgLogo from '../assets/img/logo.png'
 import { Link } from 'react-router-dom';
+import Counter from './elements/Counter';
 
 function Header() {
   const [search, setSearch] = useState(false);
@@ -96,17 +97,7 @@ function Header() {
                   <button className="cart__remove btnClose">
                     <i className="icon-close" />
                   </button>
-                  <div className="cart__counter cart__bd counter">
-                    <button className="btnCircleIcon btnCircleIcon--minus btnCircleIcon--red">
-                      <i className="icon-minus" />
-                    </button>
-                    <p className="counter__pieces">
-                      <span className="counter__num">1</span> шт.
-                    </p>
-                    <button className="btnCircleIcon">
-                      <i className="icon-plus" />
-                    </button>
-                  </div>
+                  <Counter className="cart__counter cart__bd"/>
                   <div className="cart__bd">
                     <button className="btnCircleIcon">
                       <i className="icon-heart" />
@@ -128,9 +119,7 @@ function Header() {
                     <button className="btnCircleIcon btnCircleIcon--minus btnCircleIcon--red">
                       <i className="icon-minus" />
                     </button>
-                    <p className="counter__pieces">
-                      <span className="counter__num">1</span> шт.
-                    </p>
+                    <p className="counter__pieces">1 шт.</p>
                     <button className="btnCircleIcon">
                       <i className="icon-plus" />
                     </button>

@@ -437,6 +437,14 @@ body {
   padding-bottom: 44px;
 }
 
+.mBot6{
+  margin-bottom: 6px;
+}
+
+.mBot6:last-child{
+  margin-bottom: 0;
+}
+
 .podTp {
   margin-top: 26px;
   margin-bottom: 26px;
