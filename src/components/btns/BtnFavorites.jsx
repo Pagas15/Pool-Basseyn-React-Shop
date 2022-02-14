@@ -1,16 +1,8 @@
 import React, { useState } from 'react'
 
-function BtnFavorites({className, statePos = false, addFavor, removeFavor}) {
-  const [state, setState] = useState(statePos);
-  console.log(statePos);
+function BtnFavorites({className, statePos = false, onClick}) {
   const clickbl = () => {
-    if(state){
-      setState(false);
-      addFavor && addFavor();
-    } else {
-      setState(true);
-      removeFavor && removeFavor();
-    }
+    onClick()
   }
   
   return (
@@ -20,8 +12,6 @@ function BtnFavorites({className, statePos = false, addFavor, removeFavor}) {
         <span className="btnFavorites__icon2"><i className="icon-heartGreen" /></span> :
         <span className="btnFavorites__icon1"><i className="icon-heart"/></span> 
       }
-      
-      
     </button>
   )
 }

@@ -15,14 +15,13 @@ const favorites = (state = initialState, action) => {
     case actionName.SET_ADD_FAVORITES:
       return {
         ...state,
-        favorites: favorites.includes(action.payload) ? favorites : [...favorites, action.payload]
+        favorites: state.favorites.includes(action.payload) ? state.favorites : [...state.favorites, action.payload]
       }
     case actionName.SET_REMOVE_FAVORITES:
       return {
         ...state,
-        favorites: [...favorites].filters(item => item === action.payload)
+        favorites: [...state.favorites].filter(item => item !== action.payload)
       }
-      
     default:
       return state
   }

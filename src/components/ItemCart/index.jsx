@@ -6,22 +6,35 @@ import BtnFavorites from '../btns/BtnFavorites';
 import Price from '../elements/Price';
 import Availability from '../elements/Availability';
 
-function ItemCart({promotion, favorite, img, oldPrice, price, title, availability, itemId}) {
+function ItemCart({item, onAddCart, favorite, toggleFavorite}) {
   
   const promotionBlock = () => {
-    if(promotion){
+    if(item.promotion){
       return (<div className="card__presentation">
-        {promotion.map(item => <PromotionItem type={item} key={item}/>)}
+        {item.promotion.map(item => <PromotionItem type={item} key={item}/>)}
       </div>)
     }
   }
 
+  const availability = item.number > 0;
+  const addToCart = () => {
+    onAddCart({
+      id: item.id,
+      img: item.imgTitle,
+      title: item.title,
+      count: 1
+    })
+  }
+
+  const onToggleFavorite = () => toggleFavorite(item.id);
+
+
   return (
     <div className="card">
       {promotionBlock()}
-      <BtnFavorites className="card__btnFn" statePos={favorite} />
+      <BtnFavorites className="card__btnFn" statePos={favorite} onClick={onToggleFavorite}/>
       <div className="card__img">
-        <img src={img} alt="" />
+        <img src={item.imgTitle} alt="" />
       </div>
       <div className="card__info">
         <Availability 
@@ -29,13 +42,13 @@ function ItemCart({promotion, favorite, img, oldPrice, price, title, availabilit
           className={'card__availability'}
         />
         <Price 
-          oldPrice={oldPrice} 
-          price={price}
+          oldPrice={item.oldPrice} 
+          price={item.price}
           className={'card__price'}
         />
-        <p className="card__desc txt14x22">{title}</p>
+        <p className="card__desc txt14x22">{item.title}</p>
         <div className="card__btns">
-          {availability && <Button className={'btnGrBd'}><i className="icon-cart" /> В корзину</Button>}
+          {availability && <Button className={'btnGrBd'} onClick={addToCart}><i className="icon-cart" /> В корзину</Button>}
           <Button className={'btnGy'}>Поподробнее</Button>
         </div>
       </div>

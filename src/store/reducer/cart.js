@@ -1,7 +1,7 @@
 import * as actionName from '../actionTypes'
 
 const initialState = {
-  cart: []
+  cart: {}
 }
 
 const Cart = (state = initialState, action) => {
@@ -11,15 +11,18 @@ const Cart = (state = initialState, action) => {
         ...state,
         cart: action.payload
       }
-    case actionName.SET_ADD_CART:
+    case actionName.SET_ADD_TO_CART:
       return {
         ...state,
-        cart: cart.includes(action.payload) ? cart : [...cart, action.payload]
+        cart: state.cart[action.payload.id] ? state.cart : {
+          ...state.cart,
+          [action.payload.id]: action.payload
+        }
       }
-    case actionName.SET_REMOVE_CART:
+    case actionName.SET_REMOVE_TO_CART:
       return {
         ...state,
-        cart: [...cart].filters(item => item === action.payload)
+        cart: [...state.cart].filters(item => item !== action.payload)
       }
       
     default:
