@@ -46,7 +46,7 @@ function ItemCart({item, onAddCart, favorite, toggleFavorite, numberInCart, calc
       <BtnCardCart className="card__btnFn" />
   )
 
-
+  
   return (
     <div className="card">
       {promotionBlock()}
