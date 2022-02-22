@@ -1,13 +1,16 @@
 import React, { useState, useEffect} from 'react'
+import { useSelector } from 'react-redux';
 import useDebounce from '../../customHooks/useDebounce'
 
 function NavTwoIcon({search, setSearch, seachFunc, favoriteFunc, cartFunc}) {
   const [value, setValue] = useState('');
 
+  const cartCount = useSelector(({cart}) => cart.totalCount);
+  const favoriteCount = useSelector(({favorites}) => favorites.totalCount);
   const searcFunction = () => {
     seachFunc && seachFunc(value);
   }
-
+  console.log(favoriteCount);
   const openSearch = () => {
     if(search){
       searcFunction()
@@ -43,10 +46,11 @@ function NavTwoIcon({search, setSearch, seachFunc, favoriteFunc, cartFunc}) {
         <button className="btnClose" onClick={closeSearch}><i className="icon-close" /></button>
       </li>
       <li className="navTwo__item">
-        <a onClick={favoriteFunc} className="navTwo__link"><i className="icon-heart" /><span>4</span></a>
+        <a onClick={favoriteFunc} className="navTwo__link"><i className="icon-heart" />{(favoriteCount > 0) && <span>{favoriteCount}</span>}</a>
       </li>
+      
       <li className="navTwo__item">
-        <a onClick={cartFunc} className="navTwo__link"><i className="icon-cart" /><span>2</span></a>
+        <a onClick={cartFunc} className="navTwo__link"><i className="icon-cart" />{(cartCount > 0) && <span>{cartCount}</span>}</a>
       </li>
     </ul>
   )

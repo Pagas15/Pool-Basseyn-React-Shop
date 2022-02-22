@@ -23,6 +23,7 @@ function ItemCart({item, onAddCart, favorite, toggleFavorite, numberInCart, calc
       id: item.id,
       img: item.imgTitle,
       title: item.title,
+      price: item.price,
       count: 1
     })
   }
