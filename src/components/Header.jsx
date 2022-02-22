@@ -79,7 +79,7 @@ function Header() {
       </div>
       <div className={"header__hover " + (popupOpen ? 'active' : '')  }>
         <div className="header__hovers">
-          <div className={"header__item header__inf " + (typePop === 'favorite' ? 'active' : '')}>
+          <div className={"header__item header__inf " + (typePop === 'cart' ? 'active' : '')}>
             <div className="wrapper wrapper--tp">
               <TitleRow>
                 <h4 className="topRow__title title">Корзина</h4>
@@ -137,7 +137,7 @@ function Header() {
               </div>
             </div>
           </div>
-          <div className={"header__item header__inf " + (typePop === 'cart' ? 'active' : '')}>
+          <div className={"header__item header__inf " + (typePop === 'favorite' ? 'active' : '')}>
             <div className="wrapper wrapper--tp">
               <div className="topRow">
                 <h4 className="topRow__title title">Избранное</h4>
@@ -245,6 +245,13 @@ function Header() {
                   </div>
                 </li>
               </ul>
+              <div className="podTp btnWraper">
+                <Link to="/favorites">
+                  <Button className={'btnGy'}>
+                    Перейти в избранное
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
           <div className={"header__item header__category " + (typePop === 'category' ? 'active' : '')}>

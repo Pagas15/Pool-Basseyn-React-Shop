@@ -6,6 +6,7 @@ import BtnFavorites from '../btns/BtnFavorites';
 import Price from '../elements/Price';
 import Availability from '../elements/Availability';
 import Counter from '../elements/Counter';
+import BtnCardCart from '../btns/BtnCardCart';
 
 function ItemCart({item, onAddCart, favorite, toggleFavorite, numberInCart, calcCount}) {
 
@@ -39,12 +40,17 @@ function ItemCart({item, onAddCart, favorite, toggleFavorite, numberInCart, calc
       <Button className={'btnGrBd'} onClick={addToCart}><i className="icon-cart" /> В корзину</Button> :
       <Counter startCount={numberInCart} calcCount={calcInCount} className="mBot6" />)
     )
+  const btnFavCart = (
+    !numberInCart ? 
+      <BtnFavorites className="card__btnFn" statePos={favorite} onClick={onToggleFavorite}/> :
+      <BtnCardCart className="card__btnFn" />
+  )
 
 
   return (
     <div className="card">
       {promotionBlock()}
-      <BtnFavorites className="card__btnFn" statePos={favorite} onClick={onToggleFavorite}/>
+      {btnFavCart}      
       <div className="card__img">
         <img src={item.imgTitle} alt="" />
       </div>

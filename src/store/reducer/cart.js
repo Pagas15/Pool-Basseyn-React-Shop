@@ -1,10 +1,30 @@
 import { getArrSum, getTotalSum } from '../../customScripts';
 import * as actionName from '../actionTypes';
 
+// const initialState = {
+//   cart: {},
+//   totalCount: 0,
+//   totalPrice: 0,
+// };
 const initialState = {
-  cart: {},
-  totalCount: 0,
-  totalPrice: 0,
+  cart: {
+    '1': {
+      id: 1,
+      img: './assets/img/content/card/3.jpg',
+      title: 'Электроподогреватель для воды в бассейне до 4000л, 0.99 кВт, 150х53см',
+      price: 10050,
+      count: 1
+    },
+    '3': {
+      id: 3,
+      img: './assets/img/content/card/1.jpg',
+      title: 'Песочный фильтр-насос 3028л/ч, резервуар для песка 8.5кг, фракция 0.45-0.85мм',
+      price: 10050,
+      count: 1
+    }
+  },
+  totalCount: 2,
+  totalPrice: 20100
 };
 
 const getTotalPrice = (arr) => getTotalSum(Object.values(arr).map(item => item['price'] * item['count']));
@@ -75,7 +95,7 @@ const Cart = (state = initialState, action) => {
           },
         };
       };
-      const cartArr = () => !(state.cart[action.payload].count === 1) ? cartItem() : clearItem(action.payload);
+      const cartArr = (!(state.cart[action.payload].count === 1) ? cartItem() : clearItem(action.payload));
       return {
         ...state,
         cart: cartArr,

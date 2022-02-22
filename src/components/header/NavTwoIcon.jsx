@@ -10,7 +10,6 @@ function NavTwoIcon({search, setSearch, seachFunc, favoriteFunc, cartFunc}) {
   const searcFunction = () => {
     seachFunc && seachFunc(value);
   }
-  console.log(favoriteCount);
   const openSearch = () => {
     if(search){
       searcFunction()
