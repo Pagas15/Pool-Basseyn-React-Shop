@@ -6,7 +6,7 @@ import { ferchStore } from '../store/actions/store';
 import { setCategory } from '../store/actions/filters';
 
 import Category from '../components/Category';
-import ItemsList from '../components/ItemsList';
+import CardList from '../components/CardList';
 
 function Home() {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function Home() {
           onClickCategory={onSetCategory}
           activeCategory={activeCategory}
         />
-        <ItemsList listItems={card} />
+        <CardList listItems={card} />
       </div>
     </section>
   )

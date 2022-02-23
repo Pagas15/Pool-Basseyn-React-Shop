@@ -45,11 +45,11 @@ function NavTwoIcon({search, setSearch, seachFunc, favoriteFunc, cartFunc}) {
         <button className="btnClose" onClick={closeSearch}><i className="icon-close" /></button>
       </li>
       <li className="navTwo__item">
-        <a onClick={favoriteFunc} className="navTwo__link"><i className="icon-heart" />{(favoriteCount > 0) && <span>{favoriteCount}</span>}</a>
+        <button onClick={favoriteFunc} className="navTwo__link"><i className="icon-heart" />{(favoriteCount > 0) && <span>{favoriteCount}</span>}</button>
       </li>
       
       <li className="navTwo__item">
-        <a onClick={cartFunc} className="navTwo__link"><i className="icon-cart" />{(cartCount > 0) && <span>{cartCount}</span>}</a>
+        <button onClick={cartFunc} className="navTwo__link"><i className="icon-cart" />{(cartCount > 0) && <span>{cartCount}</span>}</button>
       </li>
     </ul>
   )

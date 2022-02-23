@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import Button from '../Button';
-import PromotionItem from '../PromotionItem';
-import BtnFavorites from '../btns/BtnFavorites';
+import Button from '../elements/Button';
+import PromotionItem from '../elements/PromotionItem';
+import BtnFavorites from '../elements/btns/BtnFavorites';
 import Price from '../elements/Price';
 import Availability from '../elements/Availability';
 import Counter from '../elements/Counter';
-import BtnCardCart from '../btns/BtnCardCart';
+import BtnCardCart from '../elements/btns/BtnCardCart';
 
 function ItemCart({item, onAddCart, favorite, toggleFavorite, numberInCart, calcCount}) {
 

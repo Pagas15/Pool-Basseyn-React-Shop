@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import BtnCircleIcon from '../../btns/BtnCircleIcon'
+import BtnCircleIcon from '../btns/BtnCircleIcon'
 
 function Counter({className, startCount = 1, calcCount}) {
 

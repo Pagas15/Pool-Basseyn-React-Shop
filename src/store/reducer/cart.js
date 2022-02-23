@@ -30,6 +30,15 @@ const initialState = {
 const getTotalPrice = (arr) => getTotalSum(Object.values(arr).map(item => item['price'] * item['count']));
 
 const Cart = (state = initialState, action) => {
+  const clearItem = (id) => {
+    return Object.keys(state.cart).reduce((object, key) => {
+      if (key != id) {
+        object[key] = state.cart[key];
+      }
+      return object;
+    }, {});
+  };
+
   switch (action.type) {
     case actionName.SET_CART: {
       const cartArr = action.payload;
@@ -53,8 +62,8 @@ const Cart = (state = initialState, action) => {
         totalPrice: getTotalPrice(cartArr, 'price')
       };
     }
-    case actionName.SET_REMOVE_TO_CART: {
-      const cartArr = [...state.cart].filters((item) => item !== action.payload);
+    case actionName.SET_REMOVE_FROM_CART: {
+      const cartArr = clearItem(action.payload);
       return {
         ...state,
         cart: cartArr,
@@ -78,14 +87,6 @@ const Cart = (state = initialState, action) => {
       };
     }
     case actionName.SET_REMOVE_ONE_CART: {
-      const clearItem = (id) => {
-        return Object.keys(state.cart).reduce((object, key) => {
-          if (key != id) {
-            object[key] = state.cart[key];
-          }
-          return object;
-        }, {});
-      };
       const cartItem = () => {
         return {
           ...state.cart,
@@ -103,8 +104,6 @@ const Cart = (state = initialState, action) => {
         totalPrice: getTotalPrice(cartArr, 'price')
       };
     }
-    case actionName.SET_REMOVE_TO_CART:
-      return state;
     default:
       return state;
   }

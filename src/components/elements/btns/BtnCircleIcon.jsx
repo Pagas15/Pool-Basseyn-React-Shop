@@ -11,6 +11,10 @@ function BtnCircleIcon({className, onClick, state = false, children}) {
         return (<i className="icon-minus" />)
       case 'plus':
         return (<i className="icon-plus" />)
+      case 'favor':
+        return (<i className="icon-heart" />)
+      case 'unFavor':
+        return (<i className="icon-plus" />)
       default:
         return children;
     }

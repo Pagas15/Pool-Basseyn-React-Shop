@@ -1,12 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { setAddToCart, setAddOneCart, setRemoveOneCart } from '../store/actions/cart';
-import { setAddFavorites, setRemoveFavorites } from '../store/actions/favorites';
+import { setAddToCart, setAddOneCart, setRemoveOneCart } from '../../store/actions/cart';
+import { setAddFavorites, setRemoveFavorites } from '../../store/actions/favorites';
 
-import ItemCart from './ItemCart';
-
-
-
+import CardItem from './CardItem';
 
 function ItemsList({listItems}) {
   const dispatch = useDispatch();
@@ -37,7 +34,7 @@ function ItemsList({listItems}) {
         listItems.map(item => {
           return (
             <li className="cardList__item card--wrap" key={item.id}>
-              <ItemCart 
+              <CardItem 
                 item={item}
                 favorite={favorites.includes(item.id)}
                 toggleFavorite={toggleFavorites}

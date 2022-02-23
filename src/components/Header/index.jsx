@@ -1,13 +1,15 @@
-import React, {useState, useEffect, useRef} from 'react'
-import Navigation from './header/Navigation';
-import NavTwoIcon from './header/NavTwoIcon';
-import Phones from './header/Phones';
-import Button from './Button';
-import TitleRow from './TitleRow';
+import React, {useState} from 'react'
+import Navigation from './Navigation';
+import NavTwoIcon from './NavTwoIcon';
+import Phones from './Phones';
+import Button from '../elements/Button';
+import TitleRow from '../elements/TitleRow';
 
-import imgLogo from '../assets/img/logo.png'
+import imgLogo from '../../assets/img/logo.png'
 import { Link } from 'react-router-dom';
-import Counter from './elements/Counter';
+import CartList from '../CartList';
+import { useSelector } from 'react-redux';
+import SpacePage from '../SpacePage';
 
 function Header() {
   const [search, setSearch] = useState(false);
@@ -20,6 +22,7 @@ function Header() {
     ['./about.html','О компании'],
     ['./contacts.html','Контакты'],
   ]
+
   const phones = [
     ['tel:84951202601','8 (495) 120-26-01'],
     ['tel:84951202601','8 (495) 120-26-01'],
@@ -53,6 +56,9 @@ function Header() {
     typePop === name ? closePop() : openPop(name);
   }
 
+  const cartCount = useSelector(({cart}) => cart.totalCount)
+  const favoritesCount = useSelector(({favorites}) => favorites.totalCount)
+
 
   return (
     <header className="header">
@@ -79,179 +85,143 @@ function Header() {
       </div>
       <div className={"header__hover " + (popupOpen ? 'active' : '')  }>
         <div className="header__hovers">
-          <div className={"header__item header__inf " + (typePop === 'cart' ? 'active' : '')}>
-            <div className="wrapper wrapper--tp">
-              <TitleRow>
-                <h4 className="topRow__title title">Корзина</h4>
-                <p className="numCl">2</p>
-              </TitleRow>
-              <ul className="cartList podTp">
-                <li className="cartList__item cart">
-                  <a href="#" className="cart__info cart__bd">
-                    <div className="cart__img"><img src="img/content/cart/1.jpg" alt="" /></div>
-                    <div className="cart__txt">
-                      <p className="price">10 050 руб.</p>
-                      <p className="txt14x22">Каркасный бассейн 305х107см, 6300л, фил.-насос 2270л</p>
-                    </div>
-                  </a>
-                  <button className="cart__remove btnClose">
-                    <i className="icon-close" />
-                  </button>
-                  <Counter className="cart__counter cart__bd"/>
-                  <div className="cart__bd">
-                    <button className="btnCircleIcon">
-                      <i className="icon-heart" />
-                    </button>
-                  </div>
-                </li>
-                <li className="cartList__item cart">
-                  <a href="#" className="cart__info cart__bd">
-                    <div className="cart__img"><img src="img/content/cart/2.jpg" alt="" /></div>
-                    <div className="cart__txt">
-                      <p className="price">42 050 руб.</p>
-                      <p className="txt14x22">Каркасный бассейн Steel Pro Max 427х122см, 15232л, фил.-насос 3028л/ч, лестница, тент, Bestway, 5612X BW</p>
-                    </div>
-                  </a>
-                  <button className="cart__remove btnClose">
-                    <i className="icon-close" />
-                  </button>
-                  <div className="cart__counter cart__bd counter">
-                    <button className="btnCircleIcon btnCircleIcon--minus btnCircleIcon--red">
-                      <i className="icon-minus" />
-                    </button>
-                    <p className="counter__pieces">1 шт.</p>
-                    <button className="btnCircleIcon">
-                      <i className="icon-plus" />
-                    </button>
-                  </div>
-                  <div className="cart__bd">
-                    <button className="btnCircleIcon">
-                      <i className="icon-heart" />
-                    </button>
-                  </div>
-                </li>
-              </ul>
-              <div className="podTp btnWraper">
-                <a href="#" className="btn btnGr">Быстрый заказ</a>
-                <a href="#" className="btn btnGy">Перейти в корзину</a>
-              </div>
-            </div>
-          </div>
           <div className={"header__item header__inf " + (typePop === 'favorite' ? 'active' : '')}>
             <div className="wrapper wrapper--tp">
               <div className="topRow">
                 <h4 className="topRow__title title">Избранное</h4>
-                <p className="numCl">4</p>
+                {(favoritesCount > 0) && <p className="numCl">{favoritesCount}</p>}
               </div>
-              <ul className="cardList podTp">
-                <li className="cardList__item card--wrap">
-                  <div className="card">
-                    <div className="card__presentation">
-                      <p className="presen presen--green">Хит</p>
-                      <p className="presen presen--yellow">Акция</p>
-                    </div>
-                    <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
-                    <div className="card__img"><img src="./img/content/card/1.jpg" alt="" /></div>
-                    <div className="card__info">
-                      <div className="card__availability availability">
-                        <div className="availability__icon"><i className="icon-check" /></div>
-                        <p className="availability__txt">Есть в наличии</p>
+              {
+                favoritesCount > 0 ? 
+                <>
+                  <ul className="cardList podTp">
+                    <li className="cardList__item card--wrap">
+                      <div className="card">
+                        <div className="card__presentation">
+                          <p className="presen presen--green">Хит</p>
+                          <p className="presen presen--yellow">Акция</p>
+                        </div>
+                        <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
+                        <div className="card__img"><img src="./img/content/card/1.jpg" alt="" /></div>
+                        <div className="card__info">
+                          <div className="card__availability availability">
+                            <div className="availability__icon"><i className="icon-check" /></div>
+                            <p className="availability__txt">Есть в наличии</p>
+                          </div>
+                          <p className="card__price price price--discount">
+                            <span className="price__act">10 050 руб.</span>
+                            <span className="price__old">13 070 руб.</span>
+                          </p>
+                          <p className="card__desc txt14x22">Песочный фильтр-насос 3028л/ч, резервуар для песка 8.5кг, фракция 0.45-0.85мм</p>
+                          <div className="card__btns">
+                            <button className="btn btnGrBd"><i className="icon-cart" /> В корзину</button>
+                            <button className="btn btnGy">Поподробнее</button>
+                          </div>
+                        </div>
                       </div>
-                      <p className="card__price price price--discount">
-                        <span className="price__act">10 050 руб.</span>
-                        <span className="price__old">13 070 руб.</span>
-                      </p>
-                      <p className="card__desc txt14x22">Песочный фильтр-насос 3028л/ч, резервуар для песка 8.5кг, фракция 0.45-0.85мм</p>
-                      <div className="card__btns">
-                        <button className="btn btnGrBd"><i className="icon-cart" /> В корзину</button>
-                        <button className="btn btnGy">Поподробнее</button>
+                    </li>
+                    <li className="cardList__item card--wrap">
+                      <div className="card">
+                        <div className="card__presentation">
+                          <p className="presen presen--green">Хит</p>
+                          <p className="presen presen--yellow">Акция</p>
+                        </div>
+                        <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
+                        <div className="card__img"><img src="./img/content/card/1.jpg" alt="" /></div>
+                        <div className="card__info">
+                          <div className="card__availability availability">
+                            <div className="availability__icon"><i className="icon-check" /></div>
+                            <p className="availability__txt">Есть в наличии</p>
+                          </div>
+                          <p className="card__price price price--discount">
+                            <span className="price__act">10 050 руб.</span>
+                            <span className="price__old">13 070 руб.</span>
+                          </p>
+                          <p className="card__desc txt14x22">Песочный фильтр-насос 3028л/ч, резервуар для песка 8.5кг, фракция 0.45-0.85мм</p>
+                          <div className="card__btns">
+                            <button className="btn btnGrBd"><i className="icon-cart" /> В корзину</button>
+                            <button className="btn btnGy">Поподробнее</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </li>
+                    <li className="cardList__item card--wrap">
+                      <div className="card">
+                        <div className="card__presentation">
+                          <p className="presen presen--green">Хит</p>
+                          <p className="presen presen--yellow">Акция</p>
+                        </div>
+                        <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
+                        <div className="card__img"><img src="./img/content/card/2.jpg" alt="" /></div>
+                        <div className="card__info">
+                          <div className="card__availability availability availability--none">
+                            <div className="availability__icon"><i className="icon-none" /></div>
+                            <p className="availability__txt">Нет в наличии</p>
+                          </div>
+                          <p className="card__price price">10 050 руб.</p>
+                          <p className="card__desc txt14x22">
+                            Каркасный бассейн Steel Pro Max 427х122см, 15232л, фил.-насос 3028л/ч, лестница, тент, Bestway, 5612X BW
+                          </p>
+                          <div className="card__btns">
+                            <button className="btn btnGy">Поподробнее</button>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li className="cardList__item card--wrap">
+                      <div className="card">
+                        <div className="card__presentation">
+                          <p className="presen presen--green">Хит</p>
+                          <p className="presen presen--yellow">Акция</p>
+                        </div>
+                        <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
+                        <div className="card__img"><img src="./img/content/card/3.jpg" alt="" /></div>
+                        <div className="card__info">
+                          <div className="card__availability availability">
+                            <div className="availability__icon"><i className="icon-check" /></div>
+                            <p className="availability__txt">Есть в наличии</p>
+                          </div>
+                          <p className="card__price price price--discount">
+                            <span className="price__act">10 050 руб.</span>
+                            <span className="price__old">13 070 руб.</span>
+                          </p>
+                          <p className="card__desc txt14x22">
+                            Электроподогреватель для воды в бассейне до 4000л, 0.99 кВт, 150х53см
+                          </p>
+                          <div className="card__btns">
+                            <button className="btn btnGrBd"><i className="icon-cart" /> В корзину</button>
+                            <button className="btn btnGy">Поподробнее</button>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div className="podTp btnWraper">
+                    <Link to="/favorites">
+                      <Button className={'btnGy'}>
+                        Перейти в избранное
+                      </Button>
+                    </Link>
                   </div>
-                </li>
-                <li className="cardList__item card--wrap">
-                  <div className="card">
-                    <div className="card__presentation">
-                      <p className="presen presen--green">Хит</p>
-                      <p className="presen presen--yellow">Акция</p>
-                    </div>
-                    <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
-                    <div className="card__img"><img src="./img/content/card/1.jpg" alt="" /></div>
-                    <div className="card__info">
-                      <div className="card__availability availability">
-                        <div className="availability__icon"><i className="icon-check" /></div>
-                        <p className="availability__txt">Есть в наличии</p>
-                      </div>
-                      <p className="card__price price price--discount">
-                        <span className="price__act">10 050 руб.</span>
-                        <span className="price__old">13 070 руб.</span>
-                      </p>
-                      <p className="card__desc txt14x22">Песочный фильтр-насос 3028л/ч, резервуар для песка 8.5кг, фракция 0.45-0.85мм</p>
-                      <div className="card__btns">
-                        <button className="btn btnGrBd"><i className="icon-cart" /> В корзину</button>
-                        <button className="btn btnGy">Поподробнее</button>
-                      </div>
-                    </div>
+                </> : <SpacePage type="favorites"/>
+              }
+            </div>
+          </div>
+          <div className={"header__item header__inf " + (typePop === 'cart' ? 'active' : '')}>
+            <div className="wrapper wrapper--tp">
+              <TitleRow>
+                <h4 className="topRow__title title">Корзина</h4>
+                {(cartCount > 0) && <p className="numCl">{cartCount}</p>}
+              </TitleRow>
+              {
+                cartCount > 0 ? 
+                <>
+                  <CartList />
+                  <div className="podTp btnWraper">
+                    <a href="#" className="btn btnGr">Перейти в корзину</a>
                   </div>
-                </li>
-                <li className="cardList__item card--wrap">
-                  <div className="card">
-                    <div className="card__presentation">
-                      <p className="presen presen--green">Хит</p>
-                      <p className="presen presen--yellow">Акция</p>
-                    </div>
-                    <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
-                    <div className="card__img"><img src="./img/content/card/2.jpg" alt="" /></div>
-                    <div className="card__info">
-                      <div className="card__availability availability availability--none">
-                        <div className="availability__icon"><i className="icon-none" /></div>
-                        <p className="availability__txt">Нет в наличии</p>
-                      </div>
-                      <p className="card__price price">10 050 руб.</p>
-                      <p className="card__desc txt14x22">
-                        Каркасный бассейн Steel Pro Max 427х122см, 15232л, фил.-насос 3028л/ч, лестница, тент, Bestway, 5612X BW
-                      </p>
-                      <div className="card__btns">
-                        <button className="btn btnGy">Поподробнее</button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li className="cardList__item card--wrap">
-                  <div className="card">
-                    <div className="card__presentation">
-                      <p className="presen presen--green">Хит</p>
-                      <p className="presen presen--yellow">Акция</p>
-                    </div>
-                    <button className="card__btnFn btnBin"><i className="icon-bin" /></button>
-                    <div className="card__img"><img src="./img/content/card/3.jpg" alt="" /></div>
-                    <div className="card__info">
-                      <div className="card__availability availability">
-                        <div className="availability__icon"><i className="icon-check" /></div>
-                        <p className="availability__txt">Есть в наличии</p>
-                      </div>
-                      <p className="card__price price price--discount">
-                        <span className="price__act">10 050 руб.</span>
-                        <span className="price__old">13 070 руб.</span>
-                      </p>
-                      <p className="card__desc txt14x22">
-                        Электроподогреватель для воды в бассейне до 4000л, 0.99 кВт, 150х53см
-                      </p>
-                      <div className="card__btns">
-                        <button className="btn btnGrBd"><i className="icon-cart" /> В корзину</button>
-                        <button className="btn btnGy">Поподробнее</button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <div className="podTp btnWraper">
-                <Link to="/favorites">
-                  <Button className={'btnGy'}>
-                    Перейти в избранное
-                  </Button>
-                </Link>
-              </div>
+                </> : <SpacePage type="cart"/>
+              }
             </div>
           </div>
           <div className={"header__item header__category " + (typePop === 'category' ? 'active' : '')}>
